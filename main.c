@@ -1,35 +1,52 @@
-#include <stdio.h>
-#include <dirent.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcetin <kcetin@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 18:36:38 by kcetin            #+#    #+#             */
+/*   Updated: 2022/07/14 19:14:26 by kcetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 void partition(char *str)
 {
 	add_history(str);
-	printf("%s", str);
 	printf("\n");
+}
+
+void dir()
+{
+	struct dirent *entry;
+	DIR *folder;
+	folder = opendir(".");
+	while ((entry = readdir(folder)))
+		{
+			printf("%s\t", entry->d_name);
+		}
+		printf("\n");
 }
 
 int main()
 {
-	DIR *folder;
 	char *inpt;
-	struct dirent *entry;
-
-	folder = opendir(".");
 	int i = 0;
-	if (folder == NULL)
-	{
-		perror("Unable to read directory");
-		return (1);
-	}
-
+	char *buf;
+	
+	buf=(char *)malloc(100*sizeof(char));
+	getcwd(buf,100);
+	buf = ft_strjoin(buf, "$ ");
 	while (1)
 	{
-		inpt = readline(">");
+		inpt = readline(buf);
+		if (strcmp(inpt, "ls") == 0)
+			dir();
+		if (strcmp(inpt, "pwd") == 0)
+			printf("%s", buf);
 		partition(inpt);
 	}
-
-	return 0;
+	return (0);
 }
