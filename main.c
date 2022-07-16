@@ -6,47 +6,49 @@
 /*   By: kcetin <kcetin@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:36:38 by kcetin            #+#    #+#             */
-/*   Updated: 2022/07/14 19:14:26 by kcetin           ###   ########.fr       */
+/*   Updated: 2022/07/16 17:50:32 by kcetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void partition(char *str)
+void	partition(char *str)
 {
 	add_history(str);
 	printf("\n");
 }
 
-void dir()
+void	dir(void)
 {
-	struct dirent *entry;
-	DIR *folder;
+	struct dirent	*entry;
+	DIR				*folder;
+
 	folder = opendir(".");
 	while ((entry = readdir(folder)))
-		{
-			printf("%s\t", entry->d_name);
-		}
-		printf("\n");
+	{
+		printf("%s\t", entry->d_name);
+	}
 }
 
-int main()
+int	main(void)
 {
-	char *inpt;
-	int i = 0;
-	char *buf;
-	
-	buf=(char *)malloc(100*sizeof(char));
-	getcwd(buf,100);
-	buf = ft_strjoin(buf, "$ ");
+	char	*input;
+	char	*buf;
+
+	buf = (char *)malloc(100 * sizeof(char));
+	getcwd(buf, 100);
 	while (1)
 	{
-		inpt = readline(buf);
-		if (strcmp(inpt, "ls") == 0)
+		input = readline(ft_strjoin(buf, " $ "));
+		if (strcmp(input, "ls") == 0)
 			dir();
-		if (strcmp(inpt, "pwd") == 0)
+		else if (strcmp(input, "pwd") == 0)
 			printf("%s", buf);
-		partition(inpt);
+		else if (strstr(input, "echo "))
+			printf("%s", strchr(input, 32) + 1);
+		else
+			printf("bilinmeyen argüman : %s", input);
+		partition(input);
 	}
 	return (0);
 }
