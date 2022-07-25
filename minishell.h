@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcetin <kcetin@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 13:59:50 by kcetin            #+#    #+#             */
+/*   Updated: 2022/07/25 13:59:51 by kcetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -8,8 +20,5 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
-
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
 
 #endif
