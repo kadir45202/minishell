@@ -12,41 +12,28 @@
 
 #include "minishell.h"
 
-void	partition(char *str)
-{
-	add_history(str);
-	printf("\n");
-}
-
-void	dir(void)
-{
-	struct dirent	*entry;
-	DIR				*folder;
-
-	folder = opendir(".");
-	while ((entry = readdir(folder)))
-	{
-		printf("%s\t", entry->d_name);
-	}
-}
-
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	char	*buf;
-
-	buf = (char *)malloc(100 * sizeof(char));
-	getcwd(buf, 100);
-	input = readline(ft_strjoin(buf, " sahte $ "));
-	if (strcmp(input, "ls") == 0)
-		dir();
-	else if (strcmp(input, "pwd") == 0)
-		printf("%s", buf);
-	else if (strstr(input, "echo "))
-		printf("%s", strchr(input, 32) + 1);
+	char	*dir;
+	char	*new;
+	dir = (char *)malloc(100 * sizeof(char));
+	getcwd(dir, 100);
+	input = readline(ft_strjoin(dir, " sahte $ "));
+	new = space_jumper(input);
+	if (strcmp(input, "pwd") == 0)
+		printf("%s\n", dir);
+	else if (ft_strstr(input, "echo -n"))
+		printf("%s", ft_strchr(input, 'n') + 2);
+	else if (ft_strstr(input, "echo "))
+		printf("%s\n", ft_strchr(new, 32) + 1);
+	else if (ft_strstr(input, "cd "))
+		chdir(ft_strchr(input, 32) + 1);
+	else if (ft_strstr(input, "env"))
+		enviroment(env);
 	else
-		printf("bilinmeyen argüman : %s", input);
+		printf("bilinmeyen argüman : %s\n", input);
 	partition(input);
 	free(input);
-	main();
+	main(argc, argv, env);
 }

@@ -13,12 +13,17 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
 # include <stdio.h>
-# include <string.h>
-# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <signal.h>
+# include <fcntl.h>
 # include "./libft/libft.h"
+# include "type.h"
 
+void    enviroment(char **str);
+void	partition(char *str);
+char	*space_jumper(char *str);
 #endif

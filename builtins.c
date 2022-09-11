@@ -1,26 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcetin <kcetin@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:34:20 by kcetin            #+#    #+#             */
-/*   Updated: 2022/01/06 19:03:42 by kcetin           ###   ########.fr       */
+/*   Created: 2022/07/16 17:37:12 by kcetin            #+#    #+#             */
+/*   Updated: 2022/07/25 13:59:42 by kcetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+void	partition(char *str)
 {
-	int	i;
+	add_history(str);
+}
 
-	i = 0;
-	while (lst)
+void    enviroment(char **str)
+{
+	while (*str != NULL)
 	{
-		i++;
-		lst = lst->next;
+		printf("%s\n", *str);
+		*str++;
 	}
-	return (i);
+}
+
+char	*space_jumper(char *str)
+{
+	if(str == NULL)
+		return NULL;
+	int	i;
+	int j;
+	char *new;
+
+	j = 0;
+	i = 0;
+	new = malloc(ft_strlen(str) + 1 * sizeof(char));
+	while(str[i] < 33)
+		i++;
+	while(str[i] != '\0')
+	{
+		new[j] = str[i];
+		i++;
+		j++;
+	}
+	new[j] = '\0';
+	return (new);
 }
