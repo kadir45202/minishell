@@ -1,7 +1,7 @@
 # minishell
 Mini terminal project
 
-git clone https://github.com/kadir45202/minishell 
+git clone https://github.com/kadir45202/minishell   
 cd minishell/src  
 make  
 ./minishell
